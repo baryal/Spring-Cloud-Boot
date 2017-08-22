@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    username: falconcfuser
+    password: falconcfuser
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@sea-sea1a3flcnd01.davita.com:1533:FLCNDEV4
+    hikari:
+      maximumPoolSize: 10
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+      dialect: "org.hibernate.dialect.Oracle10gDialect"
+

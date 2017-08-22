@@ -1,0 +1,54 @@
+Q. How does the hibernate second­level cache work ?
+Ans: Hibernate always tries to first retrieve objects from the session and if
+this fails it tries to retrieve them from the second­level cache. If this fails
+again, the objects are directly loaded from the database. Hibernate's static
+initialize() method, which populates a proxy object, will attempt to hit the
+second­level cache before going to the database. The Hibernate class
+provides static methods for manipulation of proxies. 
+
+Q. What are the different caching strategies ?
+Ans: Read­only: This strategy is useful for data that is read frequently but
+never updated. This is by far the simplest and best­performing cache
+strategy.
+
+Read/write: Read/write caches may be appropriate if your data needs to be
+updated. They carry more overhead than read­only caches. In non­JTA
+environments, each transaction should be completed when Session.close()
+or Session.disconnect() is called.
+
+Nonstrict read/write: This strategy does not guarantee that two
+transactions won't simultaneously modify the same data. Therefore, it may
+be most appropriate for data that is read often but only occasionally
+modified.
+
+Transactional: This is a fully transactional cache that may be used only in a
+JTA environment.
+
+Q. What are the different fetching strategy in Hibernate ?
+Ans: Hibernate defines the following fetching strategies:
+
+Join fetching ­ Hibernate retrieves the associated instance or collection in
+the same SELECT, using an OUTER JOIN.
+
+Select fetching ­ a second SELECT is used to retrieve the associated entity
+or collection. Unless you explicitly disable lazy fetching by specifying
+lazy="false", this second select will only be executed when you actually
+access the association.
+
+Subselect fetching ­ a second SELECT is used to retrieve the associated
+collections for all entities retrieved in a previous query or fetch. Unless you
+explicitly disable lazy fetching by specifying lazy="false", this second select
+will only be executed when you actually access the association.
+
+Batch fetching ­ an optimization strategy for select fetching ­ Hibernate retrieves
+a batch of entity instances or collections in a single SELECT, by specifying a
+list of primary keys or foreign keys.
+
+
+Cascade feature
+The cascade keyword is frequently applied in relational databases. It is mostly used in databases
+that contain tables with one-to-one, one-to-many and many-to-many relationships. I think its name, cascade,
+is very revealing about its usage. When the cascade keyword is specified in a property of an entity,
+it means that the change applied on the entity will also be applied in the property as well. It is a fast way
+to manage the other side of the relationship automatically, without writing extra code.
+(save the mapped entity whenever relationship owner1 entity got saved. To enable this, we use “CascadeType” attribute. @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY))
