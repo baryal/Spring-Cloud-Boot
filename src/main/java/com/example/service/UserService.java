@@ -63,4 +63,21 @@ public class UserService {
         }
         return optional.get();
     }
+
+    public User getUser(long id) {
+        Optional<User> optional = userRepository.findOne(id);
+        if(!optional.isPresent()) {
+            throw new ValidationException("Incorrect email/password. Please try again later.");
+        }
+        return optional.get();
+    }
+
+    public List<User> deleteUser(long id) {
+        Optional<User> optional = userRepository.findOne(id);
+        if(!optional.isPresent()) {
+            throw new ValidationException("Incorrect email/password. Please try again later.");
+        }
+        userRepository.delete(optional.get());
+        return userRepository.findAll();
+    }
 }

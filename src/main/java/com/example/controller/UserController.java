@@ -26,15 +26,24 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/user/get/{id}")
+    public User getUser(@PathVariable("id") long id) {
+        return userService.getUser(id);
+    }
+
     @PostMapping("/user/add")
     public User addUser(@RequestBody User user) {
         return userService.save(user);
     }
 
-    /*@GetMapping("/employee/{id}")
-    public Employee getEmployee(@PathVariable("id") int id) {
-        return employeeService.getEmployee(id);
+    @PutMapping ("/user/update")
+    public User updateUser(@RequestBody User user) {
+        return userService.save(user);
     }
-*/
+
+    @DeleteMapping("/user/delete/{id}")
+    public List<User> deleteUser(@PathVariable("id") long id) {
+        return userService.deleteUser(id);
+    }
 
 }
